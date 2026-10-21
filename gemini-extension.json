@@ -1,0 +1,10 @@
+{
+  "name": "shopify-speed-mcp",
+  "version": "1.0.0",
+  "description": "Check any Shopify store's PageSpeed and Core Web Vitals, find the apps and scripts slowing it down, and compare Shopify plan fees.",
+  "mcpServers": {
+    "shopify-speed-check": {
+      "httpUrl": "https://tools.skaidigital.com/mcp"
+    }
+  }
+}

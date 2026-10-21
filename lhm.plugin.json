@@ -1,0 +1,177 @@
+{
+  "identifier": "skaidigital-shopify-speed-check",
+  "name": "Shopify Speed Check",
+  "version": "1.0.0",
+  "author": "Skai Digital",
+  "authorUrl": "https://www.skaidigital.com",
+  "category": "developer",
+  "homepage": "https://github.com/skaidigital/shopify-speed-mcp",
+  "icon": "⚡",
+  "description": "Remote MCP server for Shopify stores: Google PageSpeed Insights scores for mobile and desktop, real-user Core Web Vitals from the Chrome UX Report, the apps and scripts slowing the store down, theme and headless detection, and a Shopify Basic to Plus fee comparison. No API key or account needed. Endpoint: https://tools.skaidigital.com/mcp",
+  "tags": [
+    "shopify",
+    "pagespeed",
+    "core-web-vitals",
+    "performance",
+    "ecommerce",
+    "remote",
+    "mcp"
+  ],
+  "tools": [
+    {
+      "name": "check_shopify_store_speed",
+      "description": "Test a Shopify store's speed with Google PageSpeed Insights (mobile and desktop) and real-user Core Web Vitals, list the apps and scripts slowing it down, and estimate what a headless build could change, with its assumptions. Takes 10 seconds to 2.5 minutes; results are cached for 24 hours.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "strategy": {
+            "type": "string",
+            "enum": [
+              "mobile",
+              "desktop",
+              "both"
+            ],
+            "description": "Which Lighthouse runs to include; defaults to both."
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "detect_shopify_store",
+      "description": "Detect whether a site is a Shopify theme store or a headless Shopify storefront, and which theme it uses. Fetches only the public page; runs no speed test.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "calculate_shopify_fees",
+      "description": "Compare the monthly and annual cost of Shopify Basic, Grow, Advanced and Plus for a sales volume and payment mix, with break-even sales between plans and requirements only Plus covers. Uses Shopify's published US prices; the variable Plus platform fee is unpublished, so pass plusQuoteMonthly if you have a quote. Only monthlyGmv is required; the rest defaults to one brand fully on Shopify Payments with yearly billing.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+          "monthlyGmv": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 50000000,
+            "description": "Monthly online sales in USD across all stores."
+          },
+          "averageOrderValue": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 100000,
+            "description": "Average order value in USD; drives the per-order fixed card fee."
+          },
+          "billing": {
+            "type": "string",
+            "enum": [
+              "monthly",
+              "yearly"
+            ],
+            "description": "Billing for Basic, Grow and Advanced."
+          },
+          "plusTerm": {
+            "type": "string",
+            "enum": [
+              "one-year",
+              "three-year"
+            ],
+            "description": "Shopify Plus contract term."
+          },
+          "shopifyPaymentsShare": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "Share of online sales processed by Shopify Payments (0-1); the rest uses a third-party provider."
+          },
+          "premiumCardShare": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "Share of Shopify Payments sales on premium cards (0-1)."
+          },
+          "internationalCardShare": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "Share of Shopify Payments sales on international cards (0-1)."
+          },
+          "providerRateBps": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 2000,
+            "description": "Third-party provider's own rate in basis points (290 = 2.9%)."
+          },
+          "providerFixedCents": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 500,
+            "description": "Third-party provider's own fixed fee per order in cents."
+          },
+          "sameBrandStores": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50,
+            "description": "Stores for the same brand, such as regional stores."
+          },
+          "brands": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 20,
+            "description": "Separate brands; each needs its own plan or Plus contract."
+          },
+          "b2bCatalogs": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100000,
+            "description": "B2B company catalogs needed."
+          },
+          "checkoutExtensions": {
+            "type": "boolean",
+            "description": "Whether checkout UI extensions are needed."
+          },
+          "headlessStorefronts": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000,
+            "description": "Headless storefronts needed."
+          },
+          "staffAccounts": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100000,
+            "description": "Staff accounts needed besides the store owner."
+          },
+          "plusQuoteMonthly": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000000,
+            "description": "Monthly Plus price from a Shopify quote; replaces the list price."
+          }
+        },
+        "required": [
+          "monthlyGmv"
+        ],
+        "additionalProperties": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "name": "shopify-speed-check",
+  "displayName": "Shopify Speed Check",
+  "version": "1.0.0",
+  "description": "Check any Shopify store's PageSpeed and Core Web Vitals, find the apps and scripts slowing it down, and compare Shopify plan fees.",
+  "author": {
+    "name": "Skai Digital",
+    "url": "https://www.skaidigital.com"
+  },
+  "homepage": "https://www.skaidigital.com/tools/shopify-speed-test",
+  "repository": "https://github.com/skaidigital/shopify-speed-mcp",
+  "license": "MIT",
+  "keywords": [
+    "shopify",
+    "pagespeed",
+    "core-web-vitals",
+    "performance",
+    "mcp"
+  ]
+}
